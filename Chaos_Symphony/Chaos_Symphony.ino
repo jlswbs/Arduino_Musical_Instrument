@@ -1,10 +1,16 @@
-// Random symphony //
+// Random chaos symphony //
 
 #include <SoftwareSerial.h>
 
 SoftwareSerial mySerial(2, 3);
 
-#define RST 4
+#define RST  4
+#define POLY 16
+
+  float r = 3.5699456f;
+  float x = 0.1f;
+  float nx;
+  int outx;
 
 void setup() {
 
@@ -15,51 +21,28 @@ void setup() {
   delay(100);
   digitalWrite(RST, HIGH);
   delay(100);
-
-  // Volume cc = 7
-  control(0, 7, 96);
-  control(1, 7, 96);
-  control(2, 7, 96);
-  control(9, 7, 96);
-
-  // Pan cc = 10
-  control(0, 10, 32);
-  control(1, 10, 58);
-  control(2, 10, 96);
-  control(9, 10, 64);
-
-  // Reverb cc = 91
-  control(0, 91, 64);
-  control(1, 91, 64);
-  control(2, 91, 64);
   
 }
 
 void loop() {
 
-  program(0, rand()%20);
-  program(1, 90+rand()%30);
-  program(2, 50+rand()%30); 
+  nx = x;
+  x = r * nx * (1.0f - nx);
+  
+  outx = (1UL << 31) * x;
 
-  int note1 = 24+rand()%36;
-  int note2 = 48+rand()%24;
-  int note3 = 36+rand()%24;
- 
-  noteon(0, note1, rand()%32);
-  noteon(1, note2 , rand()%32);
-  noteon(2, note3 , rand()%32);
-  noteon(9, 36+rand()%36 , rand()%28);
+  srand(outx);
 
+  program(rand()%POLY, rand()%123);
+
+  control(rand()%POLY, rand()%128, rand()%128);
+
+  noteon(rand()%POLY, 24 + rand()%64, rand()%24);
+    
   uint16_t tempo = 120; // 120BPM
   uint16_t delay_ms = 60000 / tempo;
     
-  delay(delay_ms / 4);
-
-  noteoff(0, note1, 96);
-  noteoff(1, note2, 96);
-  noteoff(2, note3, 96);
-    
-  delay(delay_ms / 4);
+  delay(delay_ms / 8);
 
 }
 

@@ -53,7 +53,10 @@ void loop() {
   if (state[6] == 1) noteon (9, 41, rand()%32);
   if (state[7] == 1) noteon (9, 42, rand()%32);
     
-  delay(240);
+  uint16_t tempo = 120; // 120BPM
+  uint16_t delay_ms = 60000 / tempo;
+    
+  delay(delay_ms / 2);
 
 }
 
