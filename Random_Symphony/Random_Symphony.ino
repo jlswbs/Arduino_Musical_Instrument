@@ -5,6 +5,7 @@
 SoftwareSerial mySerial(2, 3);
 
 #define RST 4
+#define BPM 120 // tempo
 
 void setup() {
 
@@ -50,7 +51,7 @@ void loop() {
   noteon(2, note3 , rand()%32);
   noteon(9, 36+rand()%36 , rand()%28);
 
-  uint16_t tempo = 120; // 120BPM
+  uint16_t tempo = BPM;
   uint16_t delay_ms = 60000 / tempo;
     
   delay(delay_ms / 4);

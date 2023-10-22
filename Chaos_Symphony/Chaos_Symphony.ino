@@ -5,7 +5,8 @@
 SoftwareSerial mySerial(2, 3);
 
 #define RST  4
-#define POLY 16
+#define BPM  120  // tempo
+#define POLY 16   // channels
 
   float r = 3.5699456f;
   float x = 0.1f;
@@ -39,7 +40,7 @@ void loop() {
 
   noteon(rand()%POLY, 24 + rand()%64, rand()%24);
     
-  uint16_t tempo = 120; // 120BPM
+  uint16_t tempo = BPM;
   uint16_t delay_ms = 60000 / tempo;
     
   delay(delay_ms / 8);

@@ -5,6 +5,7 @@
 SoftwareSerial mySerial(2, 3);
 
 #define RST 4
+#define BPM 120 // tempo
 
 #define WIDTH 256
 
@@ -53,7 +54,7 @@ void loop() {
   if (state[6] == 1) noteon (9, 41, rand()%32);
   if (state[7] == 1) noteon (9, 42, rand()%32);
     
-  uint16_t tempo = 120; // 120BPM
+  uint16_t tempo = BPM;
   uint16_t delay_ms = 60000 / tempo;
     
   delay(delay_ms / 2);
